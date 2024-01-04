@@ -1,31 +1,19 @@
-import Table from "./components/Table";
+import { NavLink, Route, Routes } from "react-router-dom";
 import "./style/App.css";
-import { footballTableData } from "./data/data";
-// const data = [
-//   { cabin: "Jedan", capacity: 5, price: 34, discount: 4 },
-//   { cabin: "Jedan", capacity: 5, price: 34, discount: 4 },
-//   { cabin: "Jedan", capacity: 5, price: 34, discount: 4 },
-//   { cabin: "Jedan", capacity: 5, price: 34, discount: 4 },
-//   { cabin: "Jedan", capacity: 5, price: 34, discount: 4 },
-// ];
+import { CustomFootballTable, DefaultFootballTable } from "./pages";
 
 function App() {
   return (
-    <div className="center">
-      <Table columns="1fr 3fr 1fr 1fr 1fr 1fr 1fr 1fr">
-        <Table.Header>
-          <th>#</th>
-          <th>Club</th>
-          <th>PM</th>
-          <th>W</th>
-          <th>D</th>
-          <th>L</th>
-          <th>GD</th>
-          <th>P</th>
-        </Table.Header>
+    <div className="home">
+      <nav>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/customFootball">Custom football</NavLink>
+      </nav>
 
-        <Table.Body data={footballTableData}></Table.Body>
-      </Table>
+      <Routes>
+        <Route path="/" element={<DefaultFootballTable />} />
+        <Route path="/customFootball" element={<CustomFootballTable />} />
+      </Routes>
     </div>
   );
 }

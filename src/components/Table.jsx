@@ -7,14 +7,14 @@ import { isEmpty, map } from "lodash-es";
 const TableContext = createContext();
 
 function Header({ children }) {
-  const { columns, header } = useContext(TableContext);
+  const { header } = useContext(TableContext);
 
   if (!isEmpty(header)) {
     const headerTitles = header.split(" ");
 
     return (
       <thead>
-        <Row className="common-row" style={{ gridTemplateColumns: columns }}>
+        <Row>
           {map(headerTitles, (title) => (
             <th key={title}>{title}</th>
           ))}
@@ -25,21 +25,19 @@ function Header({ children }) {
 
   return (
     <thead>
-      <Row
-        className="common-row header"
-        style={{ gridTemplateColumns: columns }}
-      >
-        {children}
-      </Row>
+      <Row header>{children}</Row>
     </thead>
   );
 }
 
-function Row({ children }) {
+function Row({ children, header }) {
   const { columns } = useContext(TableContext);
 
   return (
-    <tr className="common-row row" style={{ gridTemplateColumns: columns }}>
+    <tr
+      className={`common-row row ${header ? "header" : ""}`}
+      style={{ gridTemplateColumns: columns }}
+    >
       {children}
     </tr>
   );
@@ -55,26 +53,28 @@ function Empty({ children }) {
 
 function Body({ data, render }) {
   const { columns } = useContext(TableContext);
-
-  if (isEmpty(data)) return <Empty>No data !</Empty>;
-
-  // console.log(, "data");
+  console.log(!!render, "render");
+  if (isEmpty(data) && !render) return <Empty>No data !</Empty>;
 
   const allKeys = Object.keys(data[0]);
 
   return (
     <tbody className="body" style={{ gridTemplateColumns: columns }}>
-      {render
-        ? map(render)
+      {!!render
+        ? map(data, render)
         : data.map((item, i) => (
             <Row key={i}>
               {map(allKeys, (key, index) => (
-                <td key={index}>{item[key]}</td>
+                <Cell key={index}>{item[key]}</Cell>
               ))}
             </Row>
           ))}
     </tbody>
   );
+}
+
+function Cell({ children, align }) {
+  return <td align={align}> {children}</td>;
 }
 
 function Table({ columns, children, header }) {
@@ -85,16 +85,9 @@ function Table({ columns, children, header }) {
   );
 }
 
-{
-  /* <td>{item.position}</td>
-<td>{item.club}</td>
-<td>{item.price}</td>
-<td>{item.capacity}</td>
-<td>{item.discount}</td> */
-}
-
 Table.Header = Header;
 Table.Row = Row;
+Table.Cell = Cell;
 Table.Body = Body;
 
 export default Table;
@@ -116,9 +109,14 @@ Empty.propTypes = {
 
 Row.propTypes = {
   children: PropTypes.array,
+  header: PropTypes.bool,
 };
 
 Header.propTypes = {
   children: PropTypes.array,
   header: PropTypes.string,
+};
+
+Cell.defaultProps = {
+  align: "center",
 };
