@@ -9,7 +9,6 @@ function CustomCell({ item, align }) {
         target="_blank"
         href={`https://hr.wikipedia.org/w/index.php?search=${item}`}
       >
-        {" "}
         {item}
       </a>
     </td>

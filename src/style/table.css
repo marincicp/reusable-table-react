@@ -82,3 +82,7 @@ th {
 .link:active {
   text-decoration: underline;
 }
+
+.sortable {
+  cursor: pointer;
+}

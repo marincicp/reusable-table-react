@@ -30,6 +30,14 @@ function Header({ children }) {
   );
 }
 
+function SortableHeaderCell({ children, onClick, active }) {
+  return (
+    <th className="sortable" onClick={onClick}>
+      {children} {active && "▪"}
+    </th>
+  );
+}
+
 function Row({ children, header }) {
   const { columns } = useContext(TableContext);
 
@@ -54,7 +62,7 @@ function Empty({ children }) {
 function Body({ data, render }) {
   const { columns } = useContext(TableContext);
   console.log(!!render, "render");
-  if (isEmpty(data) && !render) return <Empty>No data !</Empty>;
+  if (isEmpty(data)) return <Empty>No data !</Empty>;
 
   const allKeys = Object.keys(data[0]);
 
@@ -89,6 +97,7 @@ Table.Header = Header;
 Table.Row = Row;
 Table.Cell = Cell;
 Table.Body = Body;
+Table.SortableHeaderCell = SortableHeaderCell;
 
 export default Table;
 
