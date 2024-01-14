@@ -1,6 +1,7 @@
 import Table from "../table/Table";
 import PropTypes from "prop-types";
 import "../style/App.css";
+import ActionMenu from "../actionMenu/ActionMenu";
 
 function CustomCell({ item, align }) {
   return (
@@ -17,12 +18,13 @@ function CustomCell({ item, align }) {
 }
 
 function PositionCell({ position }) {
-  const blueBg = Number(position) < 6 ? "blueBg" : "";
+  const greenBg = Number(position) < 5 ? "greenBg" : "";
+  const blueBg = Number(position) === 5 ? "blueBg" : "";
   const redBg = Number(position) === 20 ? "redBg" : "";
 
   return (
     <td
-      className={`positionCell ${blueBg} ${redBg}`}
+      className={`positionCell ${blueBg} ${redBg} ${greenBg}`}
       style={{ backgroundColor: blueBg }}
     >
       {position}.
@@ -30,7 +32,7 @@ function PositionCell({ position }) {
   );
 }
 
-function CustomFootballRow({ item }) {
+function CutomRowCopy({ item }) {
   return (
     <Table.Row>
       <PositionCell position={item.position} />
@@ -40,16 +42,30 @@ function CustomFootballRow({ item }) {
       <Table.Cell>{item.draws}</Table.Cell>
       <Table.Cell>{item.losses}</Table.Cell>
       <Table.Cell>{item.goal_difference}</Table.Cell>
-      <Table.Cell>
+      {/* <Table.Cell>
         <strong>{item.points}</strong>
+      </Table.Cell> */}
+
+      <Table.Cell>
+        <ActionMenu.Menu>
+          <ActionMenu.Toggle id={item.club} />
+
+          <ActionMenu.List id={item.club}>
+            <ActionMenu.Button>
+              <>edit</>
+            </ActionMenu.Button>
+            <ActionMenu.Button>b</ActionMenu.Button>
+            <ActionMenu.Button>c</ActionMenu.Button>
+          </ActionMenu.List>
+        </ActionMenu.Menu>
       </Table.Cell>
     </Table.Row>
   );
 }
 
-export default CustomFootballRow;
+export default CutomRowCopy;
 
-CustomFootballRow.propTypes = {
+CutomRowCopy.propTypes = {
   item: PropTypes.func,
 };
 

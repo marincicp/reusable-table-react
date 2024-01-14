@@ -1,6 +1,11 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 import "./style/App.css";
-import { CustomFootballTable, DefaultFootballTable } from "./pages";
+import {
+  CustomFootballTable,
+  DefaultFootballTable,
+  PersonTable,
+} from "./pages";
+import { CustomFootballTableProvider } from "./context/CustomFootballTableContext";
 
 function App() {
   return (
@@ -8,11 +13,21 @@ function App() {
       <nav>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/customFootball">Custom football</NavLink>
+        <NavLink to="/personTable">Person Table</NavLink>
       </nav>
 
       <Routes>
         <Route path="/" element={<DefaultFootballTable />} />
-        <Route path="/customFootball" element={<CustomFootballTable />} />
+        <Route path="/personTable" element={<PersonTable />} />
+
+        <Route
+          path="/customFootball"
+          element={
+            <CustomFootballTableProvider>
+              <CustomFootballTable />
+            </CustomFootballTableProvider>
+          }
+        />
       </Routes>
     </div>
   );

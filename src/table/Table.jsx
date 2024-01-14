@@ -1,13 +1,20 @@
 import { createContext } from "react";
-import "../style/table.css";
+import "./table.css";
 import { useContext } from "react";
 import PropTypes from "prop-types";
 import { isEmpty, map } from "lodash-es";
-
+import { AiFillFilter, AiOutlineFilter } from "react-icons/ai";
 const TableContext = createContext();
 
-function Header({ children }) {
-  const { header } = useContext(TableContext);
+// BUG   GOTOVO
+function Header({ children, header }) {
+  if (!isEmpty(children)) {
+    return (
+      <thead>
+        <Row header>{children}</Row>
+      </thead>
+    );
+  }
 
   if (!isEmpty(header)) {
     const headerTitles = header.split(" ");
@@ -23,17 +30,21 @@ function Header({ children }) {
     );
   }
 
-  return (
-    <thead>
-      <Row header>{children}</Row>
-    </thead>
-  );
+  return null;
 }
+///////////////////////////////////////////////
 
 function SortableHeaderCell({ children, onClick, active }) {
   return (
     <th className="sortable" onClick={onClick}>
-      {children} {active && "▪"}
+      <span className="sortable-div">
+        {active ? (
+          <AiFillFilter className="icon" />
+        ) : (
+          <AiOutlineFilter className="icon" />
+        )}
+      </span>
+      <span>{children}</span>
     </th>
   );
 }
@@ -52,28 +63,24 @@ function Row({ children, header }) {
 }
 
 function Empty({ children }) {
-  return (
-    <tbody className="empty">
-      <p> {children} </p>
-    </tbody>
-  );
+  return <tbody className="empty">{children}</tbody>;
 }
 
 function Body({ data, render }) {
   const { columns } = useContext(TableContext);
-  console.log(!!render, "render");
-  if (isEmpty(data)) return <Empty>No data !</Empty>;
 
-  const allKeys = Object.keys(data[0]);
+  if (isEmpty(data)) return <Empty>No data!</Empty>;
+
+  const columnNames = Object.keys(data[0]);
 
   return (
     <tbody className="body" style={{ gridTemplateColumns: columns }}>
-      {!!render
+      {render
         ? map(data, render)
         : data.map((item, i) => (
             <Row key={i}>
-              {map(allKeys, (key, index) => (
-                <Cell key={index}>{item[key]}</Cell>
+              {map(columnNames, (columnName, index) => (
+                <Cell key={index}>{item[columnName]}</Cell>
               ))}
             </Row>
           ))}
@@ -85,9 +92,9 @@ function Cell({ children, align }) {
   return <td align={align}> {children}</td>;
 }
 
-function Table({ columns, children, header }) {
+function Table({ columns, children }) {
   return (
-    <TableContext.Provider value={{ columns, header }}>
+    <TableContext.Provider value={{ columns }}>
       <table className="table">{children}</table>
     </TableContext.Provider>
   );
@@ -102,9 +109,14 @@ Table.SortableHeaderCell = SortableHeaderCell;
 export default Table;
 
 Table.propTypes = {
-  columns: PropTypes.string,
   children: PropTypes.array,
-  header: PropTypes.string,
+  columns: PropTypes.string,
+};
+
+Cell.propTypes = {
+  align: PropTypes.string,
+
+  children: PropTypes.string,
 };
 
 Body.propTypes = {
@@ -124,6 +136,12 @@ Row.propTypes = {
 Header.propTypes = {
   children: PropTypes.array,
   header: PropTypes.string,
+};
+
+SortableHeaderCell.propTypes = {
+  onClick: PropTypes.func,
+  children: PropTypes.string,
+  active: PropTypes.bool,
 };
 
 Cell.defaultProps = {

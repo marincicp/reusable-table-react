@@ -5,7 +5,7 @@ import { useCustomFootballTableContext } from "../context/CustomFootballTableCon
 import { filters } from "../constants/footballTableConstants";
 import "../style/App.css";
 import CutomRowCopy from "../components/CustomRowCopy";
-import ActionMenu from "../actionMenu/ActionMenu";
+import Menus from "../menus/Menus";
 
 function CustomFootballTable() {
   const { tableData, sortData } = useCustomFootballTableContext();
@@ -26,7 +26,7 @@ function CustomFootballTable() {
 
   return (
     <div className="center">
-      <ActionMenu>
+      <Menus>
         <Table columns="5rem minmax(min-content, 1fr) repeat(4,minmax(min-content, .5fr)) 7rem 5rem">
           <Table.Header>
             <th>#</th>
@@ -54,7 +54,7 @@ function CustomFootballTable() {
             render={(item) => <CutomRowCopy key={item.club} item={item} />}
           ></Table.Body>
         </Table>
-      </ActionMenu>
+      </Menus>
     </div>
   );
 }

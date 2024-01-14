@@ -1,11 +1,11 @@
-import Table from "../components/Table";
+import Table from "../table/Table";
 import "../style/App.css";
 import { footballTableData } from "../data/data";
 
 function DefaultFootballTable() {
   return (
     <div className="center">
-      <Table columns="1fr 3fr 1fr 1fr 1fr 1fr 1fr 1fr">
+      <Table columns="5rem minmax(min-content, 1fr) repeat(4,5rem) 7rem 5rem">
         <Table.Header>
           <th>#</th>
           <th>Club</th>
