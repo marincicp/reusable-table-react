@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useCustomFootballTableContext } from "../context/CustomFootballTableContext";
 import { filters } from "../constants/footballTableConstants";
-import "../style/App.css";
 import CustomFootballRow from "../components/CustomFootballRow";
 import Table from "../../components/table/Table";
 import ActionMenu from "../../components/actionMenu/ActionMenu";
+import "../style/App.css";
 
 function CustomFootballTable() {
   const { tableData, sortData } = useCustomFootballTableContext();

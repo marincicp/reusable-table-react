@@ -1,9 +1,10 @@
+import { useState } from "react";
 import Table from "../../components/table/Table";
-import "../style/App.css";
 import { personTableData } from "../../data/data";
 import ActionMenu from "../../components/actionMenu/ActionMenu";
 import { CustomPersonRow } from "../components";
-import { useState } from "react";
+import "../style/App.css";
+
 function PersonTable() {
   const [personData, setPersonData] = useState(personTableData);
 

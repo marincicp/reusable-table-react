@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Table from "../../components/table/Table";
+import { cellBackground } from "../constants/footballTableConstants";
 import "../style/App.css";
 
 function CustomCell({ item, align }) {
@@ -18,9 +19,9 @@ function CustomCell({ item, align }) {
 }
 
 function PositionCell({ position }) {
-  const blueBg = Number(position) === 5 ? "blueBg" : "";
-  const redBg = Number(position) === 20 ? "redBg" : "";
-  const greenBg = Number(position) < 5 ? "greenBg" : "";
+  const blueBg = Number(position) === 5 ? cellBackground.blue : "";
+  const redBg = Number(position) === 20 ? cellBackground.red : "";
+  const greenBg = Number(position) < 5 ? cellBackground.green : "";
 
   return (
     <td

@@ -1,7 +1,8 @@
 import { createContext, useContext, useState } from "react";
-import "./actionMenu.css";
 import { createPortal } from "react-dom";
+import PropTypes from "prop-types";
 import { FaEllipsisV } from "react-icons/fa";
+import "./actionMenu.css";
 const MenusContext = createContext();
 
 function Menu({ children }) {
@@ -30,7 +31,7 @@ function Toggle({ id }) {
 }
 
 function List({ id, children }) {
-  const { openId, open, close, position } = useContext(MenusContext);
+  const { openId, position } = useContext(MenusContext);
 
   if (openId !== id) return null;
 
@@ -77,3 +78,25 @@ ActionMenu.List = List;
 ActionMenu.Button = Button;
 
 export default ActionMenu;
+
+ActionMenu.propTypes = {
+  children: PropTypes.object,
+};
+
+Button.propTypes = {
+  children: PropTypes.array,
+  onClick: PropTypes.func,
+};
+
+List.propTypes = {
+  children: PropTypes.object,
+  id: PropTypes.number,
+};
+
+Toggle.propTypes = {
+  id: PropTypes.number,
+};
+
+Menu.propTypes = {
+  children: PropTypes.array,
+};
