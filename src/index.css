@@ -20,7 +20,7 @@
   --color-grey-600: #4b5563;
   --color-grey-700: #374151;
   --color-grey-800: #1f2937;
-  --color-grey-900: #111827;
+  --color-grey-900: #001e28;
 
   --color-blue-100: #e0f2fe;
   --color-blue-700: #0369a1;
@@ -78,9 +78,9 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   color: var(--color-grey-700);
-
-  transition: color 0.3s, background-color 0.3s;
+  background-color: var(--color-grey-200);
   min-height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
+  overflow: hidden;
 }

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import Table from "../table/Table";
-// import CustomFootballRow from "../components/CustomFootballRow";
 import { useCustomFootballTableContext } from "../context/CustomFootballTableContext";
 import { filters } from "../constants/footballTableConstants";
 import "../style/App.css";
-import CutomRowCopy from "../components/CustomRowCopy";
-import ActionMenu from "../actionMenu/ActionMenu";
+import CustomFootballRow from "../components/CustomFootballRow";
+import Table from "../../components/table/Table";
+import ActionMenu from "../../components/actionMenu/ActionMenu";
 
 function CustomFootballTable() {
   const { tableData, sortData } = useCustomFootballTableContext();
@@ -51,7 +50,7 @@ function CustomFootballTable() {
 
           <Table.Body
             data={tableData}
-            render={(item) => <CutomRowCopy key={item.club} item={item} />}
+            render={(item) => <CustomFootballRow key={item.club} item={item} />}
           ></Table.Body>
         </Table>
       </ActionMenu>

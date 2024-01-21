@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { sortBy } from "lodash-es";
-import { footballTableData } from "../data/data";
+import { footballTableData } from "../../data/data";
 import { sortByFilter, filters } from "../constants/footballTableConstants";
 
 const CustomFootballTableContext = createContext();
@@ -49,5 +49,5 @@ export function useCustomFootballTableContext() {
 }
 
 CustomFootballTableProvider.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.object,
 };

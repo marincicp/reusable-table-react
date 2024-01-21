@@ -12,13 +12,11 @@ function Toggle({ id }) {
   const { openId, open, close, setPosition } = useContext(MenusContext);
 
   function handleClick(e) {
-    console.log(e);
-
     const rect = e.target.closest("button").getBoundingClientRect();
 
     setPosition({
       x: window.innerWidth - rect.width - rect.width - rect.x,
-      y: rect.y + rect.height,
+      y: rect.y + rect.height - 8,
     });
 
     openId === "" || openId !== id ? open(id) : close();
@@ -47,10 +45,12 @@ function List({ id, children }) {
   );
 }
 
-function Button({ children }) {
+function Button({ children, onClick }) {
   return (
     <li>
-      <button className="button">{children}</button>
+      <button onClick={onClick} className="button">
+        {children}
+      </button>
     </li>
   );
 }

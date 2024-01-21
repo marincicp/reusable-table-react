@@ -1,12 +1,12 @@
 import { createContext } from "react";
-import "./table.css";
-import { useContext } from "react";
 import PropTypes from "prop-types";
-import { isEmpty, map } from "lodash-es";
+import { useContext } from "react";
+import { isEmpty, map, head, keys, filter } from "lodash-es";
 import { AiFillFilter, AiOutlineFilter } from "react-icons/ai";
+import "./table.css";
+
 const TableContext = createContext();
 
-// BUG   GOTOVO
 function Header({ children, header }) {
   if (!isEmpty(children)) {
     return (
@@ -32,7 +32,6 @@ function Header({ children, header }) {
 
   return null;
 }
-///////////////////////////////////////////////
 
 function SortableHeaderCell({ children, onClick, active }) {
   return (
@@ -69,18 +68,18 @@ function Empty({ children }) {
 function Body({ data, render }) {
   const { columns } = useContext(TableContext);
 
-  if (isEmpty(data)) return <Empty>No data!</Empty>;
+  if (isEmpty(data)) return <Empty>No data !</Empty>;
 
-  const columnNames = Object.keys(data[0]);
+  const columnNames = filter(keys(head(data)), (column) => column !== "id");
 
   return (
     <tbody className="body" style={{ gridTemplateColumns: columns }}>
       {render
         ? map(data, render)
-        : data.map((item, i) => (
-            <Row key={i}>
-              {map(columnNames, (columnName, index) => (
-                <Cell key={index}>{item[columnName]}</Cell>
+        : map(data, (item) => (
+            <Row key={item.id}>
+              {map(columnNames, (columnName) => (
+                <Cell key={columnName}>{item[columnName]}</Cell>
               ))}
             </Row>
           ))}
@@ -88,8 +87,14 @@ function Body({ data, render }) {
   );
 }
 
-function Cell({ children, align }) {
-  return <td align={align}> {children}</td>;
+function Cell({ children, align, bold }) {
+  const boldCell = bold ? "bold" : "";
+
+  return (
+    <td align={align} className={`${boldCell}`}>
+      {children}
+    </td>
+  );
 }
 
 function Table({ columns, children }) {
@@ -115,8 +120,12 @@ Table.propTypes = {
 
 Cell.propTypes = {
   align: PropTypes.string,
-
-  children: PropTypes.string,
+  bold: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+  ]),
 };
 
 Body.propTypes = {

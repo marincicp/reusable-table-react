@@ -1,6 +1,6 @@
-import Table from "../table/Table";
+import Table from "../../components/table/Table";
+import { footballTableData } from "../../data/data";
 import "../style/App.css";
-import { footballTableData } from "../data/data";
 
 function DefaultFootballTable() {
   return (

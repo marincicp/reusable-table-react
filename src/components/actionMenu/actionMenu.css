@@ -28,7 +28,7 @@
   cursor: pointer;
   position: fixed;
   list-style: none;
-  background-color: var(--color-grey-0);
+  background-color: var(--color-grey-200);
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
 }
@@ -42,13 +42,14 @@
   padding: 1.2rem 2.4rem;
   font-size: 1.4rem;
   transition: all 0.2s;
+  border-radius: var(--border-radius-md);
 
   display: flex;
   align-items: center;
   gap: 1.6rem;
 
   &:hover {
-    background-color: var(--color-grey-50);
+    background-color: var(--color-grey-100);
   }
 
   & svg {

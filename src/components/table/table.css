@@ -1,8 +1,10 @@
 .table {
   border: 1px solid #ddd;
-  background-color: #f1f1f1;
+  background-color: var(--color-grey-0);
   border-radius: 10px;
   overflow: hidden;
+
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
   /* max-width: 600px; */
 
   /* @media only screen and (max-width: 700px) {
@@ -32,8 +34,8 @@ th {
 
 .header {
   padding: 1.6rem 2.4rem;
-  background-color: var(--color-grey-0);
-  border-bottom: 1px solid var(--color-grey-100);
+  background-color: var(--color-grey-100);
+  /* border-bottom: 1px solid var(--color-grey-100); */
   text-transform: uppercase;
   letter-spacing: 0.4px;
   font-weight: 600;
@@ -59,27 +61,12 @@ th {
   padding: 1rem 2rem;
 }
 
-.positionCell {
+/* .positionCell {
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-}
-
-.blueBg {
-  background-color: blue;
-  color: #fff;
-}
-
-.redBg {
-  background-color: red;
-  color: #fff;
-}
-
-.greenBg {
-  background: green;
-  color: #fff;
-}
+} */
 
 .link:link,
 .link:visited {
@@ -98,6 +85,12 @@ th {
   justify-content: center;
   align-items: center;
   gap: 5px;
+}
+
+.sortable-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sortable:hover {
@@ -120,6 +113,9 @@ th {
 }
 
 .icon {
-  font-size: 20px;
-  background-color: red;
+  font-size: 1.6rem;
+}
+
+.bold {
+  font-weight: 600;
 }
