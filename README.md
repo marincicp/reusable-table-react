@@ -4,6 +4,7 @@
 The Table Generator is designed with the React Compound Component and Render Props patterns, 
 enabling a quick and easy implementation of tables with additional customization options such as sorting and an action menu.
 
+LIVE: https://marincicp-reusable-table-react.netlify.app/
 
 **Basic Table Example**
 
